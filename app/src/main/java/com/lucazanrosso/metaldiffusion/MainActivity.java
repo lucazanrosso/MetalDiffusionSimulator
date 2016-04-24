@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public int lines = 10;
     public int columns = 20;
     int dim;
-    public int totalVacancies = 5;
+    public int totalVacancies = 10;
     View[][] views;
     Vacancy[] vacancies;
 
@@ -42,19 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
         Random r = new Random();
         int remainingVacancies = totalVacancies;
-        boolean repeat = false;
+        boolean repeat;
         while (remainingVacancies != 0) {
+            repeat = false;
             int c = r.nextInt(columns);
             int l = r.nextInt(lines);
-            Log.d("c", "c: " + c);
-            Log.d("l", "l: " + l);
-            repeat = false;
-            for (int v = 0; v + remainingVacancies < totalVacancies; v++) {
+            for (int v = 0; v + remainingVacancies < totalVacancies; v++)
                 if (vacancies[v].column == c && vacancies[v].line == l) {
                     repeat = true;
-                    Log.d("if", "if: " );
+                    break;
                 }
-            }
             if (! repeat) {
                 Vacancy vacancy = new Vacancy(this, c, l);
                 views[c][l] = vacancy;
@@ -63,38 +60,54 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        for (int i = 0; i < columns / 2; i++) {
+        for (int i = 0; i < columns; i++) {
             LinearLayout linearLayout = new LinearLayout(this);
             linearLayout.setLayoutParams(linearLayoutParams);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             for (int j = 0; j < lines; j++) {
                 View view = new View(this);
                 view.setLayoutParams(viewLayoutParams);
-                if (views[i][j] instanceof Vacancy) {
-                    view.setBackgroundResource(0);
-                    Log.d("if", "+" );
-                }else
-                    view.setBackgroundResource(R.drawable.blue_circle);
-                views[i][j] = view;
-                linearLayout.addView(view);
-            }
-            mainLayout.addView(linearLayout);
-        }
-        for (int i = 0; i < columns / 2; i++) {
-            LinearLayout linearLayout = new LinearLayout(this);
-            linearLayout.setLayoutParams(linearLayoutParams);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            for (int j = 0; j < lines; j++) {
-                View view = new View(this);
-                view.setLayoutParams(viewLayoutParams);
-                if (views[i + columns/2][j] instanceof Vacancy)
+                if (views[i][j] instanceof Vacancy)
                     view.setBackgroundResource(0);
                 else
-                    view.setBackgroundResource(R.drawable.red_circle);
+                    if (i < columns / 2)
+                        view.setBackgroundResource(R.drawable.blue_circle);
+                    else
+                        view.setBackgroundResource(R.drawable.red_circle);
                 views[i][j] = view;
                 linearLayout.addView(view);
             }
             mainLayout.addView(linearLayout);
         }
     }
+
+//    public void play() {
+//        Random r = new Random();
+////        int remainingVacancies = totalVacancies;
+//            int c = r.nextInt(4);
+//            for (int i = 0; i < columns; i++)
+//                for (int j = 0; j < lines; j++) {
+//                    if (views[i][j] instanceof Vacancy) {
+//                        switch (c) {
+//                            case 0:
+//
+//                        }
+//                    }
+//                    switch (c) {
+//                        case 0:
+//                    }
+
+//            for (Vacancy vacancy : vacancies)
+//                if (vacancy.column == c && vacancies[v].line == l) {
+//                    repeat = true;
+//                    break;
+//                }
+//            if (! repeat) {
+//                Vacancy vacancy = new Vacancy(this, c, l);
+//                views[c][l] = vacancy;
+//                vacancies[totalVacancies - remainingVacancies] = vacancy;
+//                remainingVacancies--;
+//            }
+//        }
+//    }
 }
