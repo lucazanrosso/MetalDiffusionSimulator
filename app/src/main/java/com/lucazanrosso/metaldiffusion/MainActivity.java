@@ -11,9 +11,9 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     public int lines = 10;
-    public int columns = 16;
+    public int columns = 20;
     int dim;
-    public int totalVacancies = 10;
+    public int totalVacancies = 20;
     Atom[][] atoms;
     Atom[] vacancies;
 
@@ -21,10 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         start(new View(this));
-        atoms[1][1] = atoms[12][6];
-//        play(new View(this));
     }
 
     public void start(View view2) {
@@ -59,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 remainingVacancies--;
             }
         }
-
         for (int i = 0; i < columns; i++) {
             LinearLayout linearLayout = new LinearLayout(this);
             linearLayout.setLayoutParams(linearLayoutParams);
@@ -82,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-
         Random r = new Random();
         for (Atom vacancy : vacancies) {
             int c = vacancy.column;
@@ -112,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
             atoms[newC][newL].setBackgroundResource(0);
             vacancy.column = newC;
             vacancy.line = newL;
-
         }
     }
 }
